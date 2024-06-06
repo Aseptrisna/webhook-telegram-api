@@ -28,7 +28,12 @@ app.post('/webhook', (req, res) => {
     const chatId = req.body.message.chat.id;
     const message = req.body.message.text;
 
-    sendMessage(chatId, `ID chat Anda adalah ${chatId}`);
+    console.log(`Received message: ${message} from chat ID: ${chatId}`);
+
+    // Contoh mengirim balasan
+    sendMessage(chatId, `Anda mengirim: ${message}`);
+
+    res.send('ok')
 
     res.send('ok');
 });
