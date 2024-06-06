@@ -6,6 +6,7 @@ class Message {
     
     const { chatId, message } = req.body;
     const result = await messageService.sendMessage(chatId, message);
+    console.log(result);
     if (result.status) {
       res.status(result.code).json(result);
     } else {
