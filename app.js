@@ -34,8 +34,7 @@ app.post('/webhook', (req, res) => {
     sendMessage(chatId, `Anda mengirim: ${message}`);
 
     res.send('ok')
-
-    res.send('ok');
+    return;
 });
 
 app.get('/', (req, res) => {
