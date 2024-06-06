@@ -5,7 +5,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const routes = require("./route");
 
-
 app.use(cors());
 app.use(express.json());
 app.use(
@@ -33,7 +32,6 @@ app.use((req, res, next) => {
 
 // Log HTTP requests
 app.use(morgan("dev"));
-// Define routes
 app.use("/v1", routes);
 
 module.exports = app;

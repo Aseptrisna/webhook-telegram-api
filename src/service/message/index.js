@@ -6,38 +6,49 @@ const botTokenLSKK = process.env.TOKEN_LSKK;
 const apiUrlLSKK = `${process.env.API_URL}${botTokenLSKK}`;
 
 class messageService {
-  async sendMessage() {
+  async sendMessage(chatId, message) {
     axios
       .post(`${apiUrl}/sendMessage`, {
         chat_id: chatId,
-        text: text,
+        text: message,
       })
       .then((response) => {
         if (response.data.ok) {
-          console.log("Pesan berhasil dikirim");
+          return {
+            status: true,
+            code: 200,
+            message: "succes",
+          };
         } else {
           console.log("Gagal mengirim pesan:", response.data);
+          return { status: false, code: 500, message: "Internal Server Error" };
         }
       })
       .catch((error) => {
-        console.error("Kesalahan saat mengirim pesan:", error);
+        return { status: false, code: 500, message: "Internal Server Error" };
       });
   }
-  async sendMessageLskk() {
+
+  async sendMessageLskk(chatId, message) {
     axios
       .post(`${apiUrlLSKK}/sendMessage`, {
         chat_id: chatId,
-        text: text,
+        text: message,
       })
       .then((response) => {
         if (response.data.ok) {
-          console.log("Pesan berhasil dikirim");
+          return {
+            status: true,
+            code: 200,
+            message: "succes",
+          };
         } else {
           console.log("Gagal mengirim pesan:", response.data);
+          return { status: false, code: 500, message: "Internal Server Error" };
         }
       })
       .catch((error) => {
-        console.error("Kesalahan saat mengirim pesan:", error);
+        return { status: false, code: 500, message: "Internal Server Error" };
       });
   }
 }

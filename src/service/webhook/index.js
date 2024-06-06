@@ -8,36 +8,34 @@ const apiUrlLSKK = `${process.env.API_URL}${botTokenLSKK}`;
 class webhookService {
   async sendwebhook() {
     axios
-      .post(`${apiUrl}/sendwebhook`, {
-        chat_id: chatId,
-        text: text,
+      .post(`https://api.telegram.org/bot${botToken}/setWebhook`, {
+        url: webhookUrl,
       })
       .then((response) => {
         if (response.data.ok) {
-          console.log("Pesan berhasil dikirim");
+          console.log("Webhook berhasil disetel");
         } else {
-          console.log("Gagal mengirim pesan:", response.data);
+          console.log("Gagal menyetel webhook:", response.data);
         }
       })
       .catch((error) => {
-        console.error("Kesalahan saat mengirim pesan:", error);
+        console.error("Kesalahan saat menyetel webhook:", error);
       });
   }
   async sendwebhookLskk() {
     axios
-      .post(`${apiUrlLSKK}/sendwebhook`, {
-        chat_id: chatId,
-        text: text,
+      .post(`https://api.telegram.org/bot${botTokenLSKK}/setWebhook`, {
+        url: webhookUrl,
       })
       .then((response) => {
         if (response.data.ok) {
-          console.log("Pesan berhasil dikirim");
+          console.log("Webhook berhasil disetel");
         } else {
-          console.log("Gagal mengirim pesan:", response.data);
+          console.log("Gagal menyetel webhook:", response.data);
         }
       })
       .catch((error) => {
-        console.error("Kesalahan saat mengirim pesan:", error);
+        console.error("Kesalahan saat menyetel webhook:", error);
       });
   }
 }
