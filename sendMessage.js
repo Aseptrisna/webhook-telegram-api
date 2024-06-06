@@ -1,7 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
 
-const botToken =  process.env.TOKEN; 
+const botToken =  process.env.TOKEN_LSKK; 
 const apiUrl =  `${process.env.API_URL}${botToken}`;
 
 function sendMessage(chatId, text) {
@@ -23,6 +23,6 @@ function sendMessage(chatId, text) {
 
 
 const chatId = 666664903;
-const message = 'Halo! Ini adalah pesan balasan dari bot Telegram.';
+const message = 'Halo! Ini pesan dari bot Telegram.';
 
 sendMessage(chatId, message);
