@@ -1,19 +1,9 @@
-require('dotenv').config();
-const axios = require('axios');
+const http = require("https");
+const app = require("./src");
+const Configure = require("./src/config");
+const server = http.createServer(Configure.credentials, app);
+const Logger = require("./src/util");
 
-const botToken = process.env.TOKEN;
-const webhookUrl = process.env.WEBHOOKURL;
-
-axios.post(`https://api.telegram.org/bot${botToken}/setWebhook`, {
-    url: webhookUrl
-})
-.then(response => {
-    if (response.data.ok) {
-        console.log('Webhook berhasil disetel');
-    } else {
-        console.log('Gagal menyetel webhook:', response.data);
-    }
-})
-.catch(error => {
-    console.error('Kesalahan saat menyetel webhook:', error);
+server.listen(process.env.PORT, () => {
+  Logger.info(`Server Started On Port:${process.env.PORT} !!`);
 });
