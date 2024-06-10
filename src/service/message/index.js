@@ -30,6 +30,8 @@ class messageService {
   }
 
   async sendMessageLskk(chatId, message) {
+    console.log(chatId)
+    console.log(message)
     axios
       .post(`${apiUrlLSKK}/sendMessage`, {
         chat_id: chatId,

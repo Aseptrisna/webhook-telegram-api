@@ -5,8 +5,10 @@ const cors = require("cors");
 const morgan = require("morgan");
 const routes = require("./route");
 const schedule = require("node-schedule");
-const worker =require("./controller/worker")
+const worker = require("./controller/worker");
+const database = require("./config");
 
+database.Connection();
 app.use(cors());
 app.use(express.json());
 app.use(
@@ -36,17 +38,30 @@ app.use((req, res, next) => {
 app.use(morgan("dev"));
 app.use("/v1", routes);
 
-schedule.scheduleJob("0 8 * * *", () => {
-  worker.sendNotificationToAllUsers(
-    "Good morning, {username}! Jangan lupa absen dan jangan lupa menyelesaikan pekerjaan."
-  );
-});
+// Fungsi utama untuk menjalankan jadwal
+async function main() {
+  console.log("Worker.............")
+  schedule.scheduleJob("0 8 * * *", async () => {
+    await worker.sendNotificationToAllUsers(
+      "Good morning, {username}! Jangan lupa absen dan jangan lupa menyelesaikan pekerjaan."
+    );
+  });
 
-// Jadwal untuk pukul 4 sore
-schedule.scheduleJob("0 16 * * *", () => {
-  worker.sendNotificationToAllUsers(
-    "Good afternoon, {username}! Jangan lupa menyelesaikan pekerjaan."
-  );
-});
+  // Jadwal untuk pukul 4 sore
+  schedule.scheduleJob("0 16 * * *", async () => {
+    await worker.sendNotificationToAllUsers(
+      "Good afternoon, {username}! Jangan lupa menyelesaikan pekerjaan."
+    );
+  });
+
+  // Jadwal untuk setiap detik
+//   schedule.scheduleJob("* * * * * *", async () => {
+//     await worker.sendNotificationToAllUsers(
+//       "Reminder, {username}! Jangan lupa melakukan tugas Anda."
+//     );
+//   });
+}
+
+main().catch(err => console.error("Error in main function:", err));
 
 module.exports = app;
